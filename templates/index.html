@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>MemoryVerse AI | Intelligent Digital Identity System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="app-shell">
+
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-icon">MV</div>
+                <div>
+                    <h2>MemoryVerse AI</h2>
+                    <p>Digital Identity System</p>
+                </div>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="#dashboard" class="active">Dashboard</a>
+                <a href="#upload">Upload</a>
+                <a href="#documents">Documents</a>
+                <a href="#timeline">Timeline</a>
+                <a href="#relationships">Relationship Engine</a>
+                <a href="#search">Smart Search</a>
+            </nav>
+
+            <div class="sidebar-card">
+                <span>Hackathon Goal</span>
+                <p>“I never have to search through folders again.”</p>
+            </div>
+        </aside>
+
+        <main class="main-content">
+
+            <section class="hero" id="dashboard">
+                <div class="hero-text">
+                    <div class="pill">AI-powered Student Journey Repository</div>
+                    <h1>Your academic and career journey, organized by AI.</h1>
+                    <p>
+                        Upload resumes, certificates, internship letters, project reports and portfolio links.
+                        MemoryVerse AI automatically categorizes, extracts skills, connects knowledge,
+                        builds a timeline and retrieves documents instantly.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a href="#upload" class="btn-primary">Upload Document</a>
+                        <button class="btn-secondary" id="loadDemoBtn">Load Demo Data</button>
+                    </div>
+                </div>
+
+                <div class="hero-panel">
+                    <div class="ai-orb"></div>
+                    <h3>AI Identity Engine</h3>
+                    <p>Document → Category → Skill → Relationship → Timeline → Search</p>
+                    <div class="mini-flow">
+                        <span>Ingest</span>
+                        <span>Classify</span>
+                        <span>Connect</span>
+                        <span>Retrieve</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <span>Total Documents</span>
+                    <h2 id="totalDocs">0</h2>
+                </div>
+                <div class="stat-card">
+                    <span>Projects</span>
+                    <h2 id="totalProjects">0</h2>
+                </div>
+                <div class="stat-card">
+                    <span>Certifications</span>
+                    <h2 id="totalCertifications">0</h2>
+                </div>
+                <div class="stat-card">
+                    <span>Internships</span>
+                    <h2 id="totalInternships">0</h2>
+                </div>
+                <div class="stat-card">
+                    <span>Resumes</span>
+                    <h2 id="totalResumes">0</h2>
+                </div>
+                <div class="stat-card">
+                    <span>Skills Found</span>
+                    <h2 id="totalSkills">0</h2>
+                </div>
+            </section>
+
+            <section class="section-grid">
+
+                <div class="panel upload-panel" id="upload">
+                    <div class="section-header">
+                        <div>
+                            <span class="eyebrow">Module 1</span>
+                            <h2>AI Data Ingestion</h2>
+                        </div>
+                        <p>Upload original files or add portfolio/GitHub links.</p>
+                    </div>
+
+                    <form id="uploadForm">
+                        <div class="form-grid">
+                            <div class="field">
+                                <label>Document Title</label>
+                                <input type="text" name="title" placeholder="Example: Ambula Care Project Report"
+                                    required>
+                            </div>
+
+                            <div class="field">
+                                <label>Year</label>
+                                <input type="text" name="year" placeholder="Example: 2026">
+                            </div>
+
+                            <div class="field">
+                                <label>Document Type Hint</label>
+                                <select name="doc_type">
+                                    <option>Auto Detect</option>
+                                    <option>Resume</option>
+                                    <option>Certification</option>
+                                    <option>Internship</option>
+                                    <option>Project</option>
+                                    <option>Achievement</option>
+                                    <option>Academics</option>
+                                    <option>Portfolio</option>
+                                </select>
+                            </div>
+
+                            <div class="field">
+                                <label>Portfolio / GitHub Link</label>
+                                <input type="url" name="link" placeholder="https://github.com/your-project">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label>Description</label>
+                            <textarea name="description"
+                                placeholder="Write short details: technologies, achievement, internship, skills, project purpose..."></textarea>
+                        </div>
+
+                        <div class="file-upload">
+                            <input type="file" id="documentFile" name="document_file">
+                            <label for="documentFile">
+                                <strong>Choose File</strong>
+                                <span id="fileNameText">PDF, DOCX, TXT, PNG, JPG supported</span>
+                            </label>
+                        </div>
+
+                        <button class="btn-primary full" type="submit">Upload & Analyze with AI</button>
+                    </form>
+
+                    <div id="uploadResult" class="upload-result hidden"></div>
+                </div>
+
+                <div class="panel search-panel" id="search">
+                    <div class="section-header">
+                        <div>
+                            <span class="eyebrow">Module 5</span>
+                            <h2>Smart Retrieval System</h2>
+                        </div>
+                        <p>Search naturally. No folder hunting.</p>
+                    </div>
+
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="Try: Show my full stack journey">
+                        <button id="searchBtn">Search</button>
+                    </div>
+
+                    <div class="quick-search">
+                        <button data-query="Show all my certificates">Certificates</button>
+                        <button data-query="Show internship documents">Internships</button>
+                        <button data-query="Show my AI projects">AI Projects</button>
+                        <button data-query="Show my latest resume">Latest Resume</button>
+                        <button data-query="Show my full stack journey">Full Stack Journey</button>
+                    </div>
+
+                    <div class="answer-card" id="answerCard">
+                        <span>AI Answer</span>
+                        <p>Ask anything about your uploaded journey.</p>
+                    </div>
+
+                    <div id="searchResults" class="search-results"></div>
+                </div>
+
+            </section>
+
+            <section class="panel" id="documents">
+                <div class="section-header">
+                    <div>
+                        <span class="eyebrow">Module 2</span>
+                        <h2>Intelligent Categorization</h2>
+                    </div>
+                    <p>Documents are automatically classified into projects, skills, certifications, internships,
+                        achievements and academics.</p>
+                </div>
+
+                <div id="documentGrid" class="document-grid"></div>
+            </section>
+
+            <section class="panel" id="relationships">
+                <div class="section-header">
+                    <div>
+                        <span class="eyebrow">Module 3</span>
+                        <h2>Relationship Engine</h2>
+                    </div>
+                    <p>AI connects certificates, skills, projects, internships and career paths.</p>
+                </div>
+
+                <div id="relationshipGrid" class="relationship-grid"></div>
+            </section>
+
+            <section class="panel" id="timeline">
+                <div class="section-header">
+                    <div>
+                        <span class="eyebrow">Module 4</span>
+                        <h2>Digital Journey Timeline</h2>
+                    </div>
+                    <p>Visual representation of student growth and achievements.</p>
+                </div>
+
+                <div id="timelineList" class="timeline-list"></div>
+            </section>
+
+            <section class="panel architecture-panel">
+                <div class="section-header">
+                    <div>
+                        <span class="eyebrow">Architecture</span>
+                        <h2>AI Workflow</h2>
+                    </div>
+                    <p>Use this flow in your architecture diagram and demo explanation.</p>
+                </div>
+
+                <div class="architecture-flow">
+                    <div>User Uploads</div>
+                    <span>→</span>
+                    <div>File Storage</div>
+                    <span>→</span>
+                    <div>SQLite DB</div>
+                    <span>→</span>
+                    <div>NLP Categorization</div>
+                    <span>→</span>
+                    <div>Skill Extraction</div>
+                    <span>→</span>
+                    <div>Relationship Engine</div>
+                    <span>→</span>
+                    <div>Timeline + Smart Search</div>
+                </div>
+            </section>
+
+        </main>
+
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>
