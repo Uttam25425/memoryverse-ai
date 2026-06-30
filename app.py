@@ -445,8 +445,11 @@ def score_document_for_query(doc, query):
 
 @app.route("/")
 def home():
+    conn = connect_db()
+    conn.execute("DELETE FROM documents")
+    conn.commit()
+    conn.close()
     return render_template("index.html")
-
 
 @app.route("/uploads/<path:filename>")
 def uploaded_file(filename):
