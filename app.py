@@ -108,6 +108,9 @@ def init_db():
     conn.commit()
     conn.close()
 
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+init_db()
+
 
 def allowed_file(filename):
     if "." not in filename:
