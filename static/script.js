@@ -1,3 +1,5 @@
+const resetDataBtn = document.getElementById("resetDataBtn");
+
 const uploadForm = document.getElementById("uploadForm");
 const uploadResult = document.getElementById("uploadResult");
 const documentGrid = document.getElementById("documentGrid");
@@ -297,5 +299,27 @@ if (documentFileInput && fileNameText) {
         } else {
             fileNameText.textContent = "PDF, DOCX, TXT, PNG, JPG supported";
         }
+    });
+}
+
+if (resetDataBtn) {
+    resetDataBtn.addEventListener("click", async function () {
+        const confirmReset = confirm("Do you want to clear all data?");
+        if (!confirmReset) return;
+
+        const res = await fetch("/api/reset-data", {
+            method: "POST"
+        });
+
+        const data = await res.json();
+        showToast(data.message || "Data cleared.");
+        await refreshAll();
+
+        answerCard.innerHTML = `
+            <span>AI Answer</span>
+            <p>Ask anything about your uploaded journey.</p>
+        `;
+
+        searchResults.innerHTML = "";
     });
 }

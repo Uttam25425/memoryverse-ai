@@ -806,6 +806,27 @@ def demo_data():
         "message": f"{inserted} student journey demo records added successfully."
     })
 
+@app.route("/api/reset-data", methods=["POST"])
+def reset_data():
+    conn = connect_db()
+    conn.execute("DELETE FROM documents")
+    conn.commit()
+    conn.close()
+
+    if os.path.exists(UPLOAD_FOLDER):
+        for file_name in os.listdir(UPLOAD_FOLDER):
+            file_path = os.path.join(UPLOAD_FOLDER, file_name)
+            if os.path.isfile(file_path):
+                try:
+                    os.remove(file_path)
+                except Exception:
+                    pass
+
+    return jsonify({
+        "success": True,
+        "message": "All data cleared successfully."
+    })
+
 
 if __name__ == "__main__":
     os.makedirs(UPLOAD_FOLDER, exist_ok=True)
